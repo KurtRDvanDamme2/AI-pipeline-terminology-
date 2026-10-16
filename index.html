@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Terminology & Architecture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gemini-gradient {
+            background: linear-gradient(90deg, #1d4ed8, #c026d3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 p-4 md:p-8">
+
+    <header class="max-w-5xl mx-auto mb-10 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 gradient-text">AI Architecture & Terminology</h1>
+        <p class="text-lg text-slate-600 max-w-2xl mx-auto">A visual guide to understanding LLMs, RAG, and how your local AI stack compares to integrated platforms like Gemini.</p>
+    </header>
+
+    <main class="max-w-5xl mx-auto space-y-12">
+
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+            <h2 class="text-2xl font-bold mb-6 text-slate-800 flex items-center">
+                <span class="text-3xl mr-3">📚</span> Core Terminology
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 p-5 rounded-xl border border-blue-100">
+                    <h3 class="font-bold text-blue-800 mb-2">LLM (Large Language Model)</h3>
+                    <p class="text-sm text-slate-700">The "Brain" (e.g., Llama 3.1, Gemini). It generates text based on its training, but by itself, it does not know your private files or current events.</p>
+                </div>
+                <div class="bg-purple-50 p-5 rounded-xl border border-purple-100">
+                    <h3 class="font-bold text-purple-800 mb-2">RAG (Retrieval-Augmented Generation)</h3>
+                    <p class="text-sm text-slate-700">The "Reference System". It fetches relevant documents from your private database and gives them to the LLM to read <em>before</em> it answers your question.</p>
+                </div>
+                <div class="bg-emerald-50 p-5 rounded-xl border border-emerald-100">
+                    <h3 class="font-bold text-emerald-800 mb-2">Vectorization & Vector DB</h3>
+                    <p class="text-sm text-slate-700">The process of turning text into mathematical coordinates (vectors). A Vector DB stores these so the AI can instantly "search by meaning" rather than just keywords.</p>
+                </div>
+                <div class="bg-amber-50 p-5 rounded-xl border border-amber-100">
+                    <h3 class="font-bold text-amber-800 mb-2">Context Window</h3>
+                    <p class="text-sm text-slate-700">The AI's short-term memory. It's the maximum amount of text (prompt + retrieved documents) the AI can hold in its head at one time while formulating an answer.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+            <h2 class="text-2xl font-bold mb-6 text-slate-800 flex items-center">
+                <span class="text-3xl mr-3">⚙️</span> How RAG Works (The Pipeline)
+            </h2>
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
+                
+                <!-- Step 1 -->
+                <div class="flex-1 text-center">
+                    <div class="bg-slate-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center text-3xl mb-3 border-2 border-slate-300">📄</div>
+                    <h4 class="font-bold">1. Document Parsing</h4>
+                    <p class="text-xs text-slate-500 mt-1">Extracting text from PDFs, Excel, and Notion.</p>
+                </div>
+
+                <div class="text-slate-400 rotate-90 lg:rotate-0 text-2xl">➔</div>
+
+                <!-- Step 2 -->
+                <div class="flex-1 text-center">
+                    <div class="bg-slate-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center text-3xl mb-3 border-2 border-slate-300">🔢</div>
+                    <h4 class="font-bold">2. Vectorization</h4>
+                    <p class="text-xs text-slate-500 mt-1">Converting text into searchable mathematical vectors.</p>
+                </div>
+
+                <div class="text-slate-400 rotate-90 lg:rotate-0 text-2xl">➔</div>
+
+                <!-- Step 3 -->
+                <div class="flex-1 text-center">
+                    <div class="bg-slate-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center text-3xl mb-3 border-2 border-slate-300">🗄️</div>
+                    <h4 class="font-bold">3. Vector Database</h4>
+                    <p class="text-xs text-slate-500 mt-1">Storing vectors locally (managed by AnythingLLM).</p>
+                </div>
+
+                <div class="text-slate-400 rotate-90 lg:rotate-0 text-2xl">➔</div>
+
+                <!-- Step 4 -->
+                <div class="flex-1 text-center relative">
+                    <div class="bg-blue-100 w-20 h-20 mx-auto rounded-full flex items-center justify-center text-3xl mb-3 border-2 border-blue-400 shadow-lg shadow-blue-200">🧠</div>
+                    <h4 class="font-bold text-blue-700">4. LLM Generation</h4>
+                    <p class="text-xs text-slate-500 mt-1">User asks a question. DB retrieves data. LLM answers.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <!-- Local Setup Column -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">MODULAR</div>
+                <h2 class="text-2xl font-bold mb-4 text-slate-800 flex items-center">
+                    <span class="text-3xl mr-3">💻</span> Your Local Stack
+                </h2>
+                <p class="text-sm text-slate-600 mb-6 pb-4 border-b border-slate-100">Components are separate, fully private, and run entirely on your own hardware.</p>
+                
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <div class="bg-slate-100 p-2 rounded-lg mr-4">🤖</div>
+                        <div>
+                            <strong class="block text-slate-800">Ollama</strong>
+                            <span class="text-sm text-slate-600">The engine running the LLM (Llama 3.1). It only answers based on what it's given.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="bg-slate-100 p-2 rounded-lg mr-4">🛠️</div>
+                        <div>
+                            <strong class="block text-slate-800">AnythingLLM</strong>
+                            <span class="text-sm text-slate-600">The UI, the document parser, and the Vector DB manager. It connects your files to Ollama.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="bg-slate-100 p-2 rounded-lg mr-4">🔒</div>
+                        <div>
+                            <strong class="block text-slate-800">Your Data</strong>
+                            <span class="text-sm text-slate-600">Volvo/KUKA files stay on your hard drive.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Gemini Column -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 relative overflow-hidden">
+                <div class="absolute top-0 right-0 bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">INTEGRATED</div>
+                <h2 class="text-2xl font-bold mb-4 text-slate-800 flex items-center">
+                    <span class="text-3xl mr-3">✨</span> Gemini Platform
+                </h2>
+                <p class="text-sm text-slate-600 mb-6 pb-4 border-b border-slate-100">An all-in-one RAG pipeline where the model, retrieval tools, and interface are unified.</p>
+                
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <div class="bg-purple-50 p-2 rounded-lg mr-4">🧠</div>
+                        <div>
+                            <strong class="block gemini-gradient">Gemini Core Model</strong>
+                            <span class="text-sm text-slate-600">The underlying engine providing reasoning and intelligence.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="bg-purple-50 p-2 rounded-lg mr-4">🌐</div>
+                        <div>
+                            <strong class="block text-slate-800">Built-in RAG & Tools</strong>
+                            <span class="text-sm text-slate-600">Automatically parses uploaded files, searches the live web, or queries Google Workspace without manual setup.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="bg-purple-50 p-2 rounded-lg mr-4">☁️</div>
+                        <div>
+                            <strong class="block text-slate-800">Cloud Hosted</strong>
+                            <span class="text-sm text-slate-600">Runs on Google's infrastructure, allowing for massive context windows and high-speed processing.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>
